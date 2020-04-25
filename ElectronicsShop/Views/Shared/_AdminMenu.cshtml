@@ -1,0 +1,24 @@
+﻿@using ElectronicsShop.Models
+@{
+    var controller = ViewData["controllerName"];
+
+    var controllers = ControllersInAdminMenu.GetControllers;
+}
+
+@*Żeby dodać kolejne odnośniki do kontolerów, trzeba najpierw dodać je do klasy ControllerList,
+    a później wyznaczyć ich kolejność w klasie ControllersInAdminMenu*@
+
+<div class="list-group" style="margin-top: 75px; position: absolute; top: 0px; left: 20px; width: 350px">
+    <a href="#" class="list-group-item active">
+        Panel Admina
+    </a>
+
+    @foreach (var item in controllers)
+    {
+        //Jeśli nazwy kontrolerów się zgadzają dodaje klasę, która koloruje przycisk na inny kolor
+        var classList = (controller?.ToString() == item.ControllerName) ? "list-group-item active" : "list-group-item";
+
+        <a href="@Url.Action("Index", @item.ControllerName)" class="@classList">@item.Label</a>
+    }
+
+</div>

@@ -168,15 +168,67 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BrandsController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004240853279_InitialModel.cs" />
+    <Compile Include="Migrations\202004240853279_InitialModel.Designer.cs">
+      <DependentUpon>202004240853279_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004240902270_AddCategoriesTable.cs" />
+    <Compile Include="Migrations\202004240902270_AddCategoriesTable.Designer.cs">
+      <DependentUpon>202004240902270_AddCategoriesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004240903066_AddImagesTable.cs" />
+    <Compile Include="Migrations\202004240903066_AddImagesTable.Designer.cs">
+      <DependentUpon>202004240903066_AddImagesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004240904472_AddBrandsTable.cs" />
+    <Compile Include="Migrations\202004240904472_AddBrandsTable.Designer.cs">
+      <DependentUpon>202004240904472_AddBrandsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004251610156_AddImageGalleriesTable.cs" />
+    <Compile Include="Migrations\202004251610156_AddImageGalleriesTable.Designer.cs">
+      <DependentUpon>202004251610156_AddImageGalleriesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004251619129_AddTagAndTagValuesTables.cs" />
+    <Compile Include="Migrations\202004251619129_AddTagAndTagValuesTables.Designer.cs">
+      <DependentUpon>202004251619129_AddTagAndTagValuesTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004251626301_AddProductsAndProductTagsTables.cs" />
+    <Compile Include="Migrations\202004251626301_AddProductsAndProductTagsTables.Designer.cs">
+      <DependentUpon>202004251626301_AddProductsAndProductTagsTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004251820086_AddAdminRole.cs" />
+    <Compile Include="Migrations\202004251820086_AddAdminRole.Designer.cs">
+      <DependentUpon>202004251820086_AddAdminRole.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ControllerList.cs" />
+    <Compile Include="Models\ControllersInAdminMenu.cs" />
+    <Compile Include="Models\ControllerWithLabel.cs" />
+    <Compile Include="Models\DbModels\Brand.cs" />
+    <Compile Include="Models\DbModels\Category.cs" />
+    <Compile Include="Models\DbModels\Gallery.cs" />
+    <Compile Include="Models\DbModels\Image.cs" />
+    <Compile Include="Models\DbModels\ImageGallery.cs" />
+    <Compile Include="Models\DbModels\Product.cs" />
+    <Compile Include="Models\DbModels\ProductTags.cs" />
+    <Compile Include="Models\DbModels\Tag.cs" />
+    <Compile Include="Models\DbModels\TagValue.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Interfaces\IModelBase.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -237,6 +289,38 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Images\Create.cshtml" />
+    <Content Include="Views\Images\Delete.cshtml" />
+    <Content Include="Views\Images\Details.cshtml" />
+    <Content Include="Views\Images\Edit.cshtml" />
+    <Content Include="Views\Images\Index.cshtml" />
+    <Content Include="Views\Brands\Create.cshtml" />
+    <Content Include="Views\Brands\Delete.cshtml" />
+    <Content Include="Views\Brands\Details.cshtml" />
+    <Content Include="Views\Brands\Edit.cshtml" />
+    <Content Include="Views\Brands\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Tags\Create.cshtml" />
+    <Content Include="Views\Tags\Delete.cshtml" />
+    <Content Include="Views\Tags\Details.cshtml" />
+    <Content Include="Views\Tags\Edit.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Galleries\Create.cshtml" />
+    <Content Include="Views\Galleries\Delete.cshtml" />
+    <Content Include="Views\Galleries\Details.cshtml" />
+    <Content Include="Views\Galleries\Edit.cshtml" />
+    <Content Include="Views\Galleries\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -253,6 +337,32 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004240853279_InitialModel.resx">
+      <DependentUpon>202004240853279_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004240902270_AddCategoriesTable.resx">
+      <DependentUpon>202004240902270_AddCategoriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004240903066_AddImagesTable.resx">
+      <DependentUpon>202004240903066_AddImagesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004240904472_AddBrandsTable.resx">
+      <DependentUpon>202004240904472_AddBrandsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004251610156_AddImageGalleriesTable.resx">
+      <DependentUpon>202004251610156_AddImageGalleriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004251619129_AddTagAndTagValuesTables.resx">
+      <DependentUpon>202004251619129_AddTagAndTagValuesTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004251626301_AddProductsAndProductTagsTables.resx">
+      <DependentUpon>202004251626301_AddProductsAndProductTagsTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004251820086_AddAdminRole.resx">
+      <DependentUpon>202004251820086_AddAdminRole.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
