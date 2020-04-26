@@ -16,8 +16,8 @@ namespace ElectronicsShop.Models
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagValue> TagValues { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductTags> ProductTags { get; set; }    
-        
+        public DbSet<ProductTags> ProductTags { get; set; }
+        public DbSet<Section> Sections { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

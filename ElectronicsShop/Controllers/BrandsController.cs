@@ -11,6 +11,7 @@ using ElectronicsShop.Models.DbModels;
 
 namespace ElectronicsShop.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BrandsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

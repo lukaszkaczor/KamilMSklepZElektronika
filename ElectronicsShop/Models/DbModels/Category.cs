@@ -9,5 +9,8 @@ namespace ElectronicsShop.Models.DbModels
         
         [Required]
         public string Name { get; set; }
+
+        public int SectionId { get; set; }
+        public Section Section { get; set; }
     }
 }

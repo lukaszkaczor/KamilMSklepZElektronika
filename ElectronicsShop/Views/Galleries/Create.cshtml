@@ -1,4 +1,4 @@
-﻿@model ElectronicsShop.Models.DbModels.Gallery
+﻿@model ElectronicsShop.ViewModels.CreateGalleryViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,19 +7,20 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Galleries", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(d=>d.ProductId)
     <div class="form-horizontal">
         <h4>Gallery</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Gallery.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(d => d.Gallery.Name, new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.Gallery.Name, "", new {@class = "text-danger"})
             </div>
         </div>
 

@@ -10,6 +10,7 @@ namespace ElectronicsShop.Controllers
     {
         public ActionResult Index()
         {
+            return RedirectToAction("SetTags", "Products", new {id = 10});
             return View();
         }
 

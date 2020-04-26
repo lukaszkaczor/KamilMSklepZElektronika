@@ -1,0 +1,19 @@
+﻿@using System.Data.Entity.Core.Metadata.Edm
+@model ElectronicsShop.ViewModels.SetGalleryToProductViewModel
+@{
+    ViewBag.Title = "SetGallery";
+}
+
+<h2>Wybierz galerię z listy dla @Model.Product.Name</h2>
+
+@using (Html.BeginForm("SetGallery", "Products", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(d => d.Product.Id)
+    <div style="display: flex">
+        @Html.DropDownList("ChosenGallery", new SelectList(Model.Galleries, "Id", "Name"), String.Empty, new { @class = "form-control" })
+        <button type="submit" class="btn btn-default" style="margin-left: 10px;">Zapisz</button>
+    </div>
+}
+
+@Html.ActionLink("Lub utwórz nową galerię", "Create", "Galleries", new { id = Model.Product.Id }, null )

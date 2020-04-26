@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,6 +213,18 @@
     <Compile Include="Migrations\202004251820086_AddAdminRole.Designer.cs">
       <DependentUpon>202004251820086_AddAdminRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004261113358_AddSectionsTable.cs" />
+    <Compile Include="Migrations\202004261113358_AddSectionsTable.Designer.cs">
+      <DependentUpon>202004261113358_AddSectionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004261136485_PopulateSectionsTable.cs" />
+    <Compile Include="Migrations\202004261136485_PopulateSectionsTable.Designer.cs">
+      <DependentUpon>202004261136485_PopulateSectionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004261150592_AddProductIdToTagValuesTable.cs" />
+    <Compile Include="Migrations\202004261150592_AddProductIdToTagValuesTable.Designer.cs">
+      <DependentUpon>202004261150592_AddProductIdToTagValuesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -225,19 +238,36 @@
     <Compile Include="Models\DbModels\ImageGallery.cs" />
     <Compile Include="Models\DbModels\Product.cs" />
     <Compile Include="Models\DbModels\ProductTags.cs" />
+    <Compile Include="Models\DbModels\Section.cs" />
     <Compile Include="Models\DbModels\Tag.cs" />
     <Compile Include="Models\DbModels\TagValue.cs" />
+    <Compile Include="Models\GalleryManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Interfaces\IModelBase.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TagManager.cs" />
+    <Compile Include="Models\TagNameWithValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AddImageToGalleryViewModel.cs" />
+    <Compile Include="ViewModels\CreateGalleryViewModel.cs" />
+    <Compile Include="ViewModels\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SetGalleryToProductViewModel.cs" />
+    <Compile Include="ViewModels\SetTagsToProductViewModel.cs" />
+    <Compile Include="ViewModels\TagTransferViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-cerulean.css" />
+    <Content Include="Content\bootstrap-lumen.css" />
+    <Content Include="Content\bootstrap-spacelab.css" />
+    <Content Include="Content\bootstrap-superhero.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\slider.css" />
+    <Content Include="Content\slider.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -289,11 +319,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Delete.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
-    <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Images\Create.cshtml" />
     <Content Include="Views\Images\Delete.cshtml" />
     <Content Include="Views\Images\Details.cshtml" />
@@ -321,6 +346,21 @@
     <Content Include="Views\Galleries\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Views\Products\SetTags.cshtml" />
+    <Content Include="Views\Shared\_NavMenu.cshtml" />
+    <Content Include="Views\Products\Test.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Sections\Create.cshtml" />
+    <Content Include="Views\Sections\Delete.cshtml" />
+    <Content Include="Views\Sections\Details.cshtml" />
+    <Content Include="Views\Sections\Edit.cshtml" />
+    <Content Include="Views\Sections\Index.cshtml" />
+    <Content Include="Views\Products\SetGallery.cshtml" />
+    <Content Include="Views\Galleries\AddImageToGallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -362,6 +402,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004251820086_AddAdminRole.resx">
       <DependentUpon>202004251820086_AddAdminRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261113358_AddSectionsTable.resx">
+      <DependentUpon>202004261113358_AddSectionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261136485_PopulateSectionsTable.resx">
+      <DependentUpon>202004261136485_PopulateSectionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261150592_AddProductIdToTagValuesTable.resx">
+      <DependentUpon>202004261150592_AddProductIdToTagValuesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

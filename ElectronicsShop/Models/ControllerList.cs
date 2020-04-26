@@ -40,6 +40,12 @@ namespace ElectronicsShop.Models
             Label = "Galerie"
         };
 
+        public static ControllerWithLabel Sections { get; } = new ControllerWithLabel()
+        {
+            ControllerName = "Sections",
+            Label = "Sekcje"
+        };
+
 
 
 

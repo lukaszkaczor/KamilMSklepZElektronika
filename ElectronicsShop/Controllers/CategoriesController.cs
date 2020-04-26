@@ -15,13 +15,12 @@ namespace ElectronicsShop.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            var categories = db.Categories.Include(c => c.Section);
+            return View(categories.ToList());
         }
-
 
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
@@ -30,21 +29,18 @@ namespace ElectronicsShop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             Category category = db.Categories.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
             }
-
             return View(category);
         }
 
-
         // GET: Categories/Create
-
         public ActionResult Create()
         {
+            ViewBag.SectionId = new SelectList(db.Sections, "Id", "Name");
             return View();
         }
 
@@ -53,7 +49,7 @@ namespace ElectronicsShop.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name,SectionId")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +58,7 @@ namespace ElectronicsShop.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.SectionId = new SelectList(db.Sections, "Id", "Name", category.SectionId);
             return View(category);
         }
 
@@ -77,6 +74,7 @@ namespace ElectronicsShop.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SectionId = new SelectList(db.Sections, "Id", "Name", category.SectionId);
             return View(category);
         }
 
@@ -85,7 +83,7 @@ namespace ElectronicsShop.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name,SectionId")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +91,7 @@ namespace ElectronicsShop.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SectionId = new SelectList(db.Sections, "Id", "Name", category.SectionId);
             return View(category);
         }
 

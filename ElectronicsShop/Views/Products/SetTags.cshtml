@@ -1,0 +1,67 @@
+﻿@using ElectronicsShop.ViewModels
+@model ElectronicsShop.ViewModels.SetTagsToProductViewModel
+@{
+    ViewBag.Title = "Specyfikacja";
+}
+
+<h1>Specyfikacja</h1>
+
+@using (Html.BeginForm("SetTags", "Products", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                Nazwa
+            </th>
+            <th>
+                Wartość
+            </th>
+            
+            <th>
+                <button type="submit" class="btn btn-default">Zapisz</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < Model.TagTransferModels.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.LabelFor(d=>d.TagTransferModels[i].Value, Model.TagTransferModels[i].TagName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(d => Model.TagTransferModels[i].Value, new { @class = "form-control"})
+                    @Html.HiddenFor(d => Model.TagTransferModels[i].TagId)
+                    @Html.HiddenFor(d => Model.TagTransferModels[i].TagValueId)
+                </td>
+                <td></td>
+            </tr>
+        }
+        @Html.HiddenFor(d => d.ProductId)
+        @Html.HiddenFor(d => d.HasGallery)
+        </tbody>
+        <tr>
+            <th>
+                
+            </th>
+            <th>
+                
+            </th>
+            
+            <th>
+                <button type="submit" class="btn btn-default">Zapisz</button>
+            </th>
+        </tr>
+    </table>
+}
+
+
+<style>
+    /*td:nth-child(odd) {
+        width: 50%;
+        font-weight: bold;
+        text-align: right
+    }*/
+</style>

@@ -1,0 +1,132 @@
+﻿@model ElectronicsShop.Models.DbModels.Product
+
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li>Data</li>
+</ol>
+
+
+<div class="content">
+    <div class="slider">
+        <div class="left-arrow">
+            <div class="arrow"><i class="fas fa-angle-left"></i></div>
+        </div>
+        <a href="#" class="imgHolder imgShow">
+            <img class="img"
+                 src="http://hdwarena.com/wp-content/uploads/2019/02/Beautiful-Bumblebee-Wallpaper.jpg"
+                 alt="siema">
+            <div class="captionsHolder">
+            </div>
+        </a>
+        <div class="imgHolder imgHidden">
+            <img class="img"
+                 src="http://getwallpapers.com/wallpaper/full/4/4/9/48119.jpg" alt="">
+        </div>
+        <div class="imgHolder imgHidden">
+            <img class="img" src="https://wallpaperaccess.com/full/694388.jpg" alt="">
+        </div>
+
+        <div class="right-arrow">
+            <div class="arrow"><i class="fas fa-angle-right"></i></div>
+        </div>
+        <div class="dotHolder">
+        </div>
+    </div>
+    <div class="productInfo">
+        <div class="nameAndPrice">
+            <h1>@Model.Name</h1>
+            <h2>Cena za sztukę: @Model.Price zł</h2>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.EditorFor(model => model.QuantityInStock, new { htmlAttributes = new { @class = "form-control", min = "1", @Value = "1", style = "width: 75px" } })
+
+            <button class="btn btn-default" style="">Dodaj do koszyka</button>
+        }
+
+        <h3 class="quantity">Pozostało 100 sztuk</h3>
+
+    </div>
+
+</div>
+
+<h3>Specyfikacja</h3>
+<table class="table table-striped">
+
+    <tr>
+        <td>Co wy tu robicie?</td>
+        <td>bagno</td>
+    </tr>
+
+    <tr>
+        <td>Na chleb tak zarabiacie?</td>
+        <td>YYYYYY</td>
+    </tr>
+    <tr>
+        <td>Ja potrzymam</td>
+        <td>YYYYYY</td>
+    </tr>
+</table>
+
+<style>
+    .content {
+        display: flex;
+        /*border: 1px solid red;*/
+    }
+
+        .content form {
+            width: 60%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+    .nameAndPrice {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 30px;
+    }
+
+        .nameAndPrice h1 {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .nameAndPrice h2 {
+            font-size: 20px;
+        }
+
+    .productInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 35%;
+        border: 1px solid rgba(0,0,0, .2)
+    }
+
+    .quantity {
+        font-size: 18px;
+    }
+
+    td:nth-child(odd) {
+        width: 50%;
+        font-weight: bold;
+        text-align: right
+    }
+
+    .breadcrumb {
+        margin-bottom: 10px;
+    }
+</style>
+
+
+@Styles.Render("~/Content/slider.css")
+
+@section Scripts
+{
+    <script src="../../Content/slider.js"></script>
+}

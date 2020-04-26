@@ -7,6 +7,7 @@ namespace ElectronicsShop.Models
         public static ControllerWithLabel[] GetControllers { get; set; } = new ControllerWithLabel[]
         {
             ControllerList.Brands,
+            ControllerList.Sections,
             ControllerList.Categories,
             ControllerList.Products,
             ControllerList.Tags,

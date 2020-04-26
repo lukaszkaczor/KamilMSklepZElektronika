@@ -1,0 +1,145 @@
+﻿:root {
+    --sliderWidth: 95vw;
+}
+
+.slider {
+    position: relative;
+    width: var(--sliderWidth);
+     width: 65%; 
+}
+
+.imgHolder {
+    display: block;
+    position: relative;
+}
+
+.imgHolder,
+.img {
+    display: block;
+    width: 100%;
+    /* hei */
+    /* height: calc(var(--sliderWidth) * .57); */
+    height: 100%;
+}
+
+img {
+    object-fit: cover;
+}
+
+.captionsHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 1rem;
+    width: 80%;
+    color: white;
+}
+
+.sliderImgDesc,
+.sliderImgHeading {
+    text-align: center;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.sliderImgHeading {
+    font-size: 25px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.left-arrow,
+.right-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 3rem;
+    height: 100%;
+    /* background: rgba(0, 0, 0, .5); */
+    cursor: pointer;
+    z-index: 1;
+}
+
+.right-arrow {
+    right: 0;
+}
+
+.arrow {
+    font-size: 25px;
+    color: var(--light);
+}
+
+.dotHolder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    /* top: -1.5rem;
+  right: 0; */
+    bottom: 0;
+    /* right: calc(50% - width); */
+    left: 50%;
+    transform: translateX(-50%);
+    /*3rem;*/
+    height: 1.5rem;
+    padding: 8px 5px;
+    background: rgba(0, 0, 0, 0);
+    /* background: red */
+    /* border-radius: 20px; */
+    /* width: 100px; */
+    /* align-self: center; */
+}
+
+.dot {
+    background: white;
+    width: 10px;
+    height: 5px;
+    margin: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.imgShow {
+    animation: imgTransition 1s 1;
+    animation-timing-function: ease-in;
+}
+
+.imgHidden {
+    display: none;
+}
+
+.active {
+    background: crimson;
+}
+
+@keyframes imgTransition {
+    from {
+        opacity: 0.5;
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    :root {
+        --sliderWidth: 55vw;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    :root {
+        --sliderWidth: 45vw;
+    }
+}
+/** {
+    background: green;
+}*/

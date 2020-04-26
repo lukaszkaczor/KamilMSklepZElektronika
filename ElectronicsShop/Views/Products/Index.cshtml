@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = ControllerList.Products.Label;
+    ViewBag.DisableSectionsMenu = true;
 }
 
     <h2>@ControllerList.Products.Label</h2>
@@ -16,25 +17,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Brand.Name)
+            Nazwa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            Marka
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gallery.Name)
+            Cena
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Ilość
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            Polecany
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsRecommended)
+            Specyfikacja
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuantityInStock)
+            Galeria
         </th>
         <th></th>
     </tr>
@@ -43,25 +44,32 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Brand.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gallery.Name)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.QuantityInStock)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IsRecommended)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuantityInStock)
+                @Html.ActionLink("Edytuj", "SetTags", "Products", new { id = item.Id}, null)
+            </td>
+            <td>
+               @if (item.GalleryId > 0)
+               {
+                   @Html.ActionLink(item.Gallery.Name, "Edit", "Galleries", new { id = item.Gallery.Id}, null)
+               }
+               else
+               {
+                   @Html.ActionLink("-Dodaj-", "Create", "Galleries", new { id = item.Id}, null)
+               }
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
