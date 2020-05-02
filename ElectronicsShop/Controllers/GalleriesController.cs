@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ElectronicsShop.Models;
@@ -193,12 +194,6 @@ namespace ElectronicsShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddImageToGallery(AddImageToGalleryViewModel model, int? imageId)
         {
-            //True when request comes from ImageList.cshtml
-            if (imageId > 0)
-            {
-                model.Image = db.Images.SingleOrDefault(d => d.Id == imageId);
-                model.ImageGallery.Order += 1;
-            }
             var image = model.Image;
 
 
@@ -211,7 +206,8 @@ namespace ElectronicsShop.Controllers
                 imageFromDb = image;
             }
 
-            var imgGalleryAlreadyExists = db.ImageGalleries.Where(d => d.GalleryId == model.Gallery.Id).Any(d => d.ImageId == imageFromDb.Id);
+            var imgGalleryAlreadyExists = db.ImageGalleries
+                .Where(d => d.GalleryId == model.Gallery.Id).Any(d => d.ImageId == imageFromDb.Id);
 
             if (!imgGalleryAlreadyExists)
             {
@@ -231,6 +227,45 @@ namespace ElectronicsShop.Controllers
 
             return RedirectToAction("Edit", new { id = model.Gallery.Id });
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetPositionOfImageInGallery(int galleryId, int order, int imageId)
+        {
+            var thisGallery =  db.ImageGalleries.Where(d => d.GalleryId == galleryId)
+                .SingleOrDefault(d => d.ImageId == imageId);
+
+            if (thisGallery == null) return HttpNotFound();
+
+            thisGallery.Order = order;
+
+            _galleryManager = new GalleryManager(db);
+
+            _galleryManager.SetOrderOfImageGalleries(thisGallery);
+
+            return RedirectToAction("Edit", new { id = galleryId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteImageFromGallery(int galleryId, int imageId)
+        {
+            var galleryToDelete = db.ImageGalleries.Where(d => d.GalleryId == galleryId)
+                .SingleOrDefault(d => d.ImageId == imageId);
+
+            if (galleryToDelete == null) return HttpNotFound();
+
+            db.ImageGalleries.Remove(galleryToDelete);
+            db.SaveChanges();
+
+            _galleryManager = new GalleryManager(db);
+
+            _galleryManager.OrderAndSave(db.ImageGalleries.Where(d => d.GalleryId == galleryId).ToList());
+
+            return RedirectToAction("Edit", new { id = galleryId });
+        }
+
 
     }
 }

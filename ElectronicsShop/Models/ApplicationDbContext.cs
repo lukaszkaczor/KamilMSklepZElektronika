@@ -18,6 +18,10 @@ namespace ElectronicsShop.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductTags> ProductTags { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -32,11 +36,11 @@ namespace ElectronicsShop.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ImageGallery>()
-                .HasKey(c => new {c.GalleryId, c.ImageId});
+                .HasKey(c => new { c.GalleryId, c.ImageId });
 
-            
+
             modelBuilder.Entity<ProductTags>()
-                .HasKey(c => new {c.ProductId, c.TagId});
+                .HasKey(c => new { c.ProductId, c.TagId });
 
             base.OnModelCreating(modelBuilder);
         }

@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "Details";
+    var imgState = "imgShow";
 }
 
 <ol class="breadcrumb">
-    <li><a href="@Url.Action("Index", "Home")">Omega Mamil</a></li>
+    <li><a href="@Url.Action("Index", "Home")">Omega</a></li>
     <li><a href="#">@Model.Product.Category.Section.Name</a></li>
     <li><a href="#">@Model.Product.Category.Name</a></li>
     <li>@Model.Product.Brand.Name</li>
@@ -13,24 +14,19 @@
 
 
 <div class="content">
-    <div class="slider">
+    <div class="slider" style="height: 500px"> 
         <div class="left-arrow">
             <div class="arrow"><i class="fas fa-angle-left"></i></div>
         </div>
-        <a href="#" class="imgHolder imgShow">
-            <img class="img"
-                 src="http://hdwarena.com/wp-content/uploads/2019/02/Beautiful-Bumblebee-Wallpaper.jpg"
-                 alt="siema">
-            <div class="captionsHolder">
+
+        @foreach (var image in Model.Images)
+        {
+            <div class="imgHolder @imgState">
+                <img class="img" src="@image.Url" alt="">
             </div>
-        </a>
-        <div class="imgHolder imgHidden">
-            <img class="img"
-                 src="http://getwallpapers.com/wallpaper/full/4/4/9/48119.jpg" alt="">
-        </div>
-        <div class="imgHolder imgHidden">
-            <img class="img" src="https://wallpaperaccess.com/full/694388.jpg" alt="">
-        </div>
+            imgState = "imgHidden";
+        }
+
 
         <div class="right-arrow">
             <div class="arrow"><i class="fas fa-angle-right"></i></div>
@@ -40,13 +36,21 @@
     </div>
     <div class="productInfo">
         <div class="nameAndPrice">
-            <h1>@Model.Product.Name</h1>
+            <h1>@Model.Product.Brand.Name @Model.Product.Name</h1>
             <h2>Cena za sztukę: @Model.Product.Price zł</h2>
         </div>
 
-        @using (Html.BeginForm())
+        <h5 style="color: crimson">@ViewBag.ErrorMessage</h5>
+        <h5 style="color: green; text-align: center" >@ViewBag.Success</h5>
+
+
+        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
         {
-            @Html.EditorFor(model => model.Product.QuantityInStock, new { htmlAttributes = new { @class = "form-control", min = "1", @Value = "1", style = "width: 75px" } })
+            @Html.AntiForgeryToken()
+            @Html.Hidden("productId", Model.Product.Id)
+            <input type="number" name="quantity" value="1" class="form-control" min="1" , style="width: 75px" />
+            @*@Html.EditorFor(model => model.Product.QuantityInStock, new { htmlAttributes = new { @class = "form-control", min = "1", @Value = "1", style = "width: 75px" } })*@
+            @*@Html.TextBox("quantity", 1, new { htmlAttributes = new { @class = "form-control", min = "1", @Value = "1", @Type="number", style = "width: 75px" } })*@
 
             <button class="btn btn-default" style="">Dodaj do koszyka</button>
         }
@@ -59,13 +63,13 @@
 
 <h3>Specyfikacja</h3>
 <table class="table table-striped">
-  @foreach (var item in Model.Tags)
-  {
-      <tr>
-          <td>@item.Name</td>
-          <td>@item.Value</td>
-      </tr>
-  }
+    @foreach (var item in Model.Tags)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Value</td>
+        </tr>
+    }
 </table>
 
 <style>

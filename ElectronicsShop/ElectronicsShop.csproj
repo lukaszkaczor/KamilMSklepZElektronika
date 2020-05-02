@@ -175,8 +175,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,24 +227,41 @@
     <Compile Include="Migrations\202004261150592_AddProductIdToTagValuesTable.Designer.cs">
       <DependentUpon>202004261150592_AddProductIdToTagValuesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004271437183_AddShoppingCartsTable.cs" />
+    <Compile Include="Migrations\202004271437183_AddShoppingCartsTable.Designer.cs">
+      <DependentUpon>202004271437183_AddShoppingCartsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004272013510_PopulateCategoriesTable.cs" />
+    <Compile Include="Migrations\202004272013510_PopulateCategoriesTable.Designer.cs">
+      <DependentUpon>202004272013510_PopulateCategoriesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005021615142_AddAddressesAndOrdersTables.cs" />
+    <Compile Include="Migrations\202005021615142_AddAddressesAndOrdersTables.Designer.cs">
+      <DependentUpon>202005021615142_AddAddressesAndOrdersTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ControllerList.cs" />
     <Compile Include="Models\ControllersInAdminMenu.cs" />
     <Compile Include="Models\ControllerWithLabel.cs" />
+    <Compile Include="Models\DbModels\Address.cs" />
     <Compile Include="Models\DbModels\Brand.cs" />
     <Compile Include="Models\DbModels\Category.cs" />
     <Compile Include="Models\DbModels\Gallery.cs" />
     <Compile Include="Models\DbModels\Image.cs" />
     <Compile Include="Models\DbModels\ImageGallery.cs" />
+    <Compile Include="Models\DbModels\Order.cs" />
+    <Compile Include="Models\DbModels\OrderDetails.cs" />
     <Compile Include="Models\DbModels\Product.cs" />
     <Compile Include="Models\DbModels\ProductTags.cs" />
     <Compile Include="Models\DbModels\Section.cs" />
+    <Compile Include="Models\DbModels\ShoppingCart.cs" />
     <Compile Include="Models\DbModels\Tag.cs" />
     <Compile Include="Models\DbModels\TagValue.cs" />
     <Compile Include="Models\GalleryManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageManager.cs" />
     <Compile Include="Models\Interfaces\IModelBase.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TagManager.cs" />
@@ -252,9 +271,13 @@
     <Compile Include="ViewModels\AddImageToGalleryViewModel.cs" />
     <Compile Include="ViewModels\CreateGalleryViewModel.cs" />
     <Compile Include="ViewModels\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\ManageOrderViewModel.cs" />
+    <Compile Include="ViewModels\OrderSummaryViewModel.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\SetGalleryToProductViewModel.cs" />
     <Compile Include="ViewModels\SetTagsToProductViewModel.cs" />
+    <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
     <Compile Include="ViewModels\TagTransferViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +289,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\galleries.js" />
     <Content Include="Content\slider.css" />
     <Content Include="Content\slider.js" />
     <Content Include="favicon.ico" />
@@ -348,7 +372,6 @@
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Views\Products\SetTags.cshtml" />
     <Content Include="Views\Shared\_NavMenu.cshtml" />
-    <Content Include="Views\Products\Test.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
     <Content Include="Views\Categories\Details.cshtml" />
@@ -361,6 +384,11 @@
     <Content Include="Views\Sections\Index.cshtml" />
     <Content Include="Views\Products\SetGallery.cshtml" />
     <Content Include="Views\Galleries\AddImageToGallery.cshtml" />
+    <Content Include="Views\Products\Search.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\OrderProcessing.cshtml" />
+    <Content Include="Views\Orders\ManageOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -411,6 +439,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004261150592_AddProductIdToTagValuesTable.resx">
       <DependentUpon>202004261150592_AddProductIdToTagValuesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271437183_AddShoppingCartsTable.resx">
+      <DependentUpon>202004271437183_AddShoppingCartsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004272013510_PopulateCategoriesTable.resx">
+      <DependentUpon>202004272013510_PopulateCategoriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005021615142_AddAddressesAndOrdersTables.resx">
+      <DependentUpon>202005021615142_AddAddressesAndOrdersTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

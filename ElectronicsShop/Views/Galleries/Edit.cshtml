@@ -16,7 +16,7 @@
         @Html.ActionLink("Dodaj zdjęcie do galerii", "AddImageToGallery", new { id = Model.Gallery.Id })
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Gallery.Id)
+        @Html.HiddenFor(model => model.Gallery.Id, new { id = "galleryId"})
 
         <div style="display: flex; flex-direction: row; ">
             @Html.EditorFor(model => model.Gallery.Name, new { htmlAttributes = new { @class = "form-control" } })
@@ -37,9 +37,9 @@
         <th>
             Podgląd
         </th>
-        <th>
+        @*<th>
             Url
-        </th>
+        </th>*@
         <th>Edytuj</th>
     </tr>
 
@@ -52,9 +52,9 @@
             <td style="display: flex">
                 <img src="@Model.Images[i].Url" style="width:150px" />
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(d => d.Images[i].Url)
-            </td>
+            </td>*@
             <td>
                 @Html.AntiForgeryToken()
                 <button class="btnSubstract btn btn-default">-</button>
@@ -78,4 +78,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="../../Content/galleries.js"></script>
 }

@@ -1,0 +1,103 @@
+﻿@model List<ElectronicsShop.ViewModels.ShoppingCartViewModel>
+@{
+    ViewBag.Title = "Index";
+    decimal total = 0;
+}
+
+
+@if (Model.Count == 0)
+{
+    <div style="width: 100%; height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <h2>Koszyk jest pusty</h2>
+        <a href="@Url.Action("Index", "Home")">Poszukaj interesujących Cię przedmiotów i dodaj je do koszyka</a>
+    </div>
+}
+else
+{
+    <h2>Koszyk @ViewBag.ErrorMsg</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th style="width: 50%">
+                Nazwa
+            </th>
+            <th>
+                Ilość sztuk
+            </th>
+            <th>
+                Cena za sztukę
+            </th>
+            <th>
+                Cena za wszystkie
+            </th>
+            <th>Usuń</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 50%">
+                    @{
+                        var src = item.Product.Gallery?.ImageGalleries?.FirstOrDefault()?.Image.Url;
+                    }
+                    <img src="@src" style="width: 50px" />
+                    @item.Product.Brand.Name @item.Product.Name
+                </td>
+                <td>
+                    @using (Html.BeginForm("AdjustQuantity", "ShoppingCart", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-default">-</button>
+                        <input type="number" style="width: 50px; text-align: center; padding: 5px 0; border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 2px" value="@item.Quantity" />
+                        @Html.Hidden("actionType", false)
+                        @Html.Hidden("productId", item.Product.Id)
+
+                    }
+                    @using (Html.BeginForm("AdjustQuantity", "ShoppingCart", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("actionType", true)
+                        @Html.Hidden("productId", item.Product.Id)
+
+                        <button class="btn btn-default">+</button>
+                    }
+                </td>
+                <td>
+
+                    @item.Product.Price.ToString("F") zł
+                </td>
+                <td>
+                    @{
+                        var totalPrice = item.Quantity * item.Product.Price;
+                        total += totalPrice;
+                    }
+                    @totalPrice.ToString("F") zł
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post))
+                    {
+                        @Html.Hidden("itemId", item.Product.Id)
+                        <button type="submit" class="btn btn-danger">x</button>
+                    }
+                </td>
+            </tr>
+        }
+
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style=""><strong>Razem:</strong> @total.ToString("F") zł</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Złóż zamówienie</a></td>
+        </tr>
+    </table>
+}

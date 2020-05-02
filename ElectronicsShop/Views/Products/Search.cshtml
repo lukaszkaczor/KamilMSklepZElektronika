@@ -1,0 +1,84 @@
+﻿@model List<ElectronicsShop.Models.DbModels.Product>
+@{
+    ViewBag.Title = "Search";
+    var searchText = ViewBag.SearchText;
+}
+
+@*<h2>Search</h2>*@
+
+@*@foreach (var i in Model)
+    {
+        <h1>
+            @i.Name
+        </h1>
+    }*@
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")">Omega</a></li>
+        <li>Szukaj</li>
+        <li>"@searchText" (@Model.Count wyników)</li>
+    </ol>
+
+
+<div class="gridContainter">
+
+    @foreach (var product in Model)
+    {
+        var ebe = product?.Gallery?.ImageGalleries?.OrderBy(d => d.Order).FirstOrDefault()?.Image.Url.ToString();
+        <a href="@Url.Action("Details", "Products", new { id = product.Id})" class="element">
+            <div class="imgHolder">
+                <img src="@ebe" />
+            </div>
+
+            <div class="elementInfo">
+                <h1>@product.Brand.Name @product.Name</h1>
+                <h2>@product.Price.ToString("F") zł</h2>
+            </div>
+        </a>
+
+
+    }
+</div>
+
+<style>
+    .gridContainter {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        /*background: red;*/
+    }
+
+    .element {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-radius: 5px;
+    }
+
+        .element img {
+            object-fit: fill;
+            width: 100%;
+        }
+
+        .element h1 {
+            font-size: 18px;
+        }
+
+        .element h2 {
+            font-size: 16px;
+        }
+
+    .elementInfo {
+        padding: 0 10px;
+    }
+
+    .imgHolder {
+        flex-basis: 75%;
+        display: flex;
+        align-items: center;
+        padding:  10px;
+        /*border: 1px solid green;*/
+    }
+</style>

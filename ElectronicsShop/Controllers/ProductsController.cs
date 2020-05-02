@@ -24,28 +24,34 @@ namespace ElectronicsShop.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult Test()
-        {
-            return View();
-        }
-
         // GET: Products/Details/5
         [AllowAnonymous]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool quantityError = false, bool successMsg = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = db.Products
+                .Include(d => d.Gallery.ImageGalleries)
                 .Include(d => d.Brand)
                 .Include(d => d.Category.Section)
                 .FirstOrDefault(d => d.Id == id);
 
+            if (quantityError)
+            {
+                ViewBag.ErrorMessage = "Niewystarczająca ilość przedmiotów w magazynie";
+            }
+            if(successMsg)
+            {
+                ViewBag.Success = $"Produkt {product.Name} został dodany do koszyka";
+            }
+
             var model = new ProductDetailsViewModel()
             {
                 Product = product,
-                Tags = TagManager.GetTagNameWithValues(db, product)
+                Tags = TagManager.GetTagNameWithValues(db, product),
+                Images = ImageManager.GetImagesForProduct(db, (int)id)
             };
 
             if (product == null)
@@ -227,71 +233,77 @@ namespace ElectronicsShop.Controllers
             var productTags = db.ProductTags.ToList();
             var tagValues = db.TagValues.Where(d => d.ProductId == model.ProductId);
 
-            foreach (var tag in model.TagTransferModels)
+            if (model.TagTransferModels != null)
             {
-                var tagValue = new TagValue()
+                foreach (var tag in model.TagTransferModels)
                 {
-                    ProductId = model.ProductId,
-                    TagId = tag.TagId,
-                    Value = tag.Value,
-                    Id = tag.TagValueId
-                };
+                    var tagValue = new TagValue()
+                    {
+                        ProductId = model.ProductId,
+                        TagId = tag.TagId,
+                        Value = tag.Value,
+                        Id = tag.TagValueId
+                    };
 
-                var value = tagValues.Where(d => d.TagId == tagValue.TagId).SingleOrDefault(d => d.ProductId == tagValue.ProductId);
+                    var value = tagValues.Where(d => d.TagId == tagValue.TagId)
+                        .SingleOrDefault(d => d.ProductId == tagValue.ProductId);
 
-                if (String.IsNullOrWhiteSpace(tag.Value))
-                {
-                    var tagValueToDelete = tagValues.Where(d => d.TagId == tagValue.TagId).SingleOrDefault(d => d.Id == tagValue.Id);
-                    var productTagToDelete = productTags.Where(d => d.TagId == tagValue.TagId).SingleOrDefault(d => d.ProductId == tagValue.ProductId);
+                    if (String.IsNullOrWhiteSpace(tag.Value))
+                    {
+                        var tagValueToDelete = tagValues.Where(d => d.TagId == tagValue.TagId)
+                            .SingleOrDefault(d => d.Id == tagValue.Id);
+                        var productTagToDelete = productTags.Where(d => d.TagId == tagValue.TagId)
+                            .SingleOrDefault(d => d.ProductId == tagValue.ProductId);
 
-                    if (tagValueToDelete != null)
-                        db.TagValues.Remove(tagValueToDelete);
+                        if (tagValueToDelete != null)
+                            db.TagValues.Remove(tagValueToDelete);
 
-                    if (productTagToDelete != null)
-                        db.ProductTags.Remove(productTagToDelete);
+                        if (productTagToDelete != null)
+                            db.ProductTags.Remove(productTagToDelete);
+
+                        db.SaveChanges();
+                        continue;
+                    }
+
+                    if (!tagValues.Any(d => d.Id == tagValue.Id))
+                    {
+                        db.TagValues.Add(tagValue);
+
+                        db.ProductTags.Add(new ProductTags()
+                        {
+                            ProductId = tagValue.ProductId,
+                            TagId = tagValue.TagId
+                        });
+                    }
+                    else if (value != null)
+                    {
+                        value.Value = tagValue.Value;
+                    }
 
                     db.SaveChanges();
-                    continue;
                 }
-
-                if (!tagValues.Any(d => d.Id == tagValue.Id))
-                {
-                    db.TagValues.Add(tagValue);
-
-                    db.ProductTags.Add(new ProductTags()
-                    {
-                        ProductId = tagValue.ProductId,
-                        TagId = tagValue.TagId
-                    });
-                }
-                else if (value != null)
-                {
-                    value.Value = tagValue.Value;
-                }
-
-                db.SaveChanges();
             }
 
             if (db.Products.FirstOrDefault(d => d.Id == model.ProductId)?.GalleryId == null)
-            {
-                return RedirectToAction("SetGallery", "Products", new { id = model.ProductId });
+                {
+                    return RedirectToAction("SetGallery", "Products", new { id = model.ProductId });
+                }
+
+                return RedirectToAction(nameof(Details), new { id = model.ProductId });
             }
 
-            return RedirectToAction(nameof(Details), new { id = model.ProductId });
-        }
-
-        public ActionResult SetGallery(int id)
-        {
-            var galleries = db.Galleries.ToList();
-            var product = db.Products.FirstOrDefault(d => d.Id == id);
-
-            var model = new SetGalleryToProductViewModel()
+            public ActionResult SetGallery(int id)
             {
-                Galleries = galleries,
-                Product = product
-            };
-            return View(model);
-        }
+                var galleries = db.Galleries.ToList();
+                var product = db.Products.FirstOrDefault(d => d.Id == id);
+
+                var model = new SetGalleryToProductViewModel()
+                {
+                    Galleries = galleries,
+                    Product = product
+                };
+                return View(model);
+            }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -314,6 +326,23 @@ namespace ElectronicsShop.Controllers
             return RedirectToAction("Details", new { id = model.Product.Id });
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Search(string searchText)
+        {
+            if (String.IsNullOrWhiteSpace(searchText)) return HttpNotFound();
+
+            var products = db.Products.Include(d => d.Gallery.ImageGalleries)
+                .Include(d => d.Category)
+                .Include(d => d.Brand)
+                .Where(d => d.Name.Contains(searchText.Trim())
+                            || d.Brand.Name.Contains(searchText.Trim())
+                            || d.Category.Name.Contains(searchText.Trim())
+                            || d.Category.Section.Name.Contains(searchText.Trim())).ToList();
+
+            ViewBag.SearchText = searchText;
+            return View(products);
+        }
 
         protected override void Dispose(bool disposing)
         {

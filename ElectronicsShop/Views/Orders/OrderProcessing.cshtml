@@ -1,0 +1,93 @@
+﻿@model List<ElectronicsShop.Models.DbModels.Order>
+
+@{
+    ViewBag.Title = "Obsługa zamówień";
+    //Layout = "_Layout";
+}
+
+
+<div class="orderProcessingContent">
+    <ul class="list-group">
+        <li class="list-group-item active">
+            @Html.ActionLink("Aktywne zamówienia", "Index", "OrderProcessing", null)
+        </li>
+        <li class="list-group-item">
+            @Html.ActionLink("Odbierz zamówienie", "AcceptOrder", "OrderProcessing")
+        </li>
+        <li class="list-group-item">
+            @Html.ActionLink("Historia moich zamówień", "History", "OrderProcessing")
+        </li>
+    </ul>
+
+    <div class="orderList">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id zamówienia</th>
+                <th>Data zamówienia</th>
+                <th>Status</th>
+                <th>Zarządzaj</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            <tr>
+                <td>1</td>
+                <td>29/04/2020</td>
+                <td>Złożone</td>
+                <td><button class="btn btn-primary">Zarządzaj</button></td>
+            </tr>            <tr>
+                <td>2</td>
+                <td>29/04/2020</td>
+                <td>Złożone</td>
+                <td><button class="btn btn-primary">Zarządzaj</button></td>
+            </tr>            <tr>
+                <td>3</td>
+                <td>29/04/2020</td>
+                <td>Złożone</td>
+                <td><button class="btn btn-primary">Zarządzaj</button></td>
+            </tr>            <tr>
+                <td>4</td>
+                <td>29/04/2020</td>
+                <td>Złożone</td>
+                <td><button class="btn btn-primary">Zarządzaj</button></td>
+            </tr>
+            @*@foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.OrderDate</td>
+                    <td>Złożone</td>
+                    <td>@Html.ActionLink("Zarządzaj", "ManageOrder", new { id = item.OrderId})</td>
+                </tr>
+            }*@
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .orderProcessingContent {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .orderProcessingContent ul {
+        flex-basis: 25%;
+    }
+    
+    .orderProcessingContent .orderList {
+        flex-basis: 75%;
+    }
+
+
+    a {
+        color: #262626;
+    }
+
+
+
+    table {
+        width: 100%;
+    }
+</style>

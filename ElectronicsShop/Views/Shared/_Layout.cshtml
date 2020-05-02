@@ -20,24 +20,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Omega Mamil", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Omega", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Menu Admina", "Index", "Products")</li>
-                    }
+                <ul class="nav navbar-nav" style="width: 75%; display: flex; justify-content: center">
+                    @*<li>@Html.ActionLink("Strona główna", "Index", "Home")</li>*@
 
                     <li>
-                        <form class="navbar-form navbar-left" role="search">
+                        @using (Html.BeginForm("Search", "Products", FormMethod.Get, new { @class="navbar-form navbar-left"}))
+                        {
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input name="searchText" type="text" class="form-control" style="width: 300px" placeholder="Szukaj">
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
+                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        }
+            
                     </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -54,11 +51,18 @@
     }
 
 
-    <div class="container body-content" style="margin-top: 10px">
+@if (User.IsInRole("Admin"))
+{
+    @Html.Partial("_AdminMenu")
+}
+
+
+
+<div class="container body-content" style="margin-top: 10px">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Omega Mamil</p>
+            <p>&copy; @DateTime.Now.Year - Omega</p>
         </footer>
     </div>
 

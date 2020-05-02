@@ -1,92 +1,101 @@
-﻿@{
+﻿@model ElectronicsShop.ViewModels.HomeViewModel
+
+@{
     ViewBag.Title = "Home Page";
+    var imgState = "imgShow";
 }
 
-
-<h1>Polecane</h1>
-<div class="gridContainter">
-    <div class="element">
-        <div class="imgHolder">
-            <img src="https://lh3.googleusercontent.com/proxy/t66LdTFMRSc36jr301oxX-RCJdjzZGXC0-_qo3of9HCUBxM2KD4TR4OzqPq7fmz4Z17_3ztAEtUWIJy7vlkpbA2469adgBfUcS5XYRuDe71By8I" />
-        </div>
-        <div class="elementInfo">
-            <h1>Pierdoloplool</h1>
-            <h2>cena</h2>
-        </div>
-    </div>
-
-    <div class="element">
-        <div class="imgHolder">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRw79F97mXiK_SuiSmUlv_-qkjtUBujxUat0A7iP1nBAaQieJYV&usqp=CAU" />
+<h1>Nowości</h1>
+<div class="content">
+    <div class="slider" style="border: 1px solid rgba(0,0,0,0.2)">
+        <div class="left-arrow">
+            <div class="arrow"><i class="fas fa-angle-left"></i></div>
         </div>
 
-        <div class="elementInfo">
+        @foreach (var image in Model.Recommended)
+        {
+            var src = image.Gallery?.ImageGalleries?.OrderBy(d => d.Order).FirstOrDefault()?.Image.Url;
 
-            <h1>Pierdoloplool o i tak to jest. co wy ty</h1>
-            <h2>cena</h2>
+            <div class="imgHolder @imgState">
+                <img class="img" src="@src" alt="">
+            </div>
+            imgState = "imgHidden";
+        }
+
+
+        <div class="right-arrow">
+            <div class="arrow"><i class="fas fa-angle-right"></i></div>
         </div>
-    </div>
-
-    <div class="element">
-        <div class="imgHolder">
-            <img src="#" />
-        </div>
-
-        <div class="elementInfo">
-            <h1>Pierdoloplool o i tak to jest. co wy ty</h1>
-            <h2>cena</h2>
+        <div class="dotHolder">
         </div>
     </div>
-
-    <div class="element">
-        <div class="imgHolder">
-            <img src="#" />
+    <div class="productInfo">
+        <div class="nameAndPrice">
+            <h3>Okazja dnia</h3>
+            <h1>iTag Blow - lokalizator kluczy Bluetooth 4.0 - biały</h1>
+            <h2>Stara cena: <span style="text-decoration: line-through">1500 zł</span></h2>
+            <h4>Nowa cena: 1000 zł</h4>
         </div>
 
-        <div class="elementInfo">
-            <h1>Pierdoloplool o i tak to jest. co wy ty</h1>
-            <h2>cena</h2>
-        </div>
+        <h5 style="color: crimson">@ViewBag.ErrorMessage</h5>
+
+
+        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @*@Html.Hidden("productId", Model.Product.Id)*@
+            <input type="number" name="quantity" value="1" class="form-control" min="1" , style="width: 75px" />
+            <button class="btn btn-default" style="">Dodaj do koszyka</button>
+        }
+
+        <h3 class="quantity">Do końca promocji pozostało 12:34:00</h3>
+
     </div>
-
-    <div class="element">
-        <div class="imgHolder">
-            <img src="#" />
-        </div>
-
-        <div class="elementInfo">
-            <h1>Pierdoloplool o i tak to jest. co wy ty</h1>
-            <h2>cena</h2>
-        </div>
-    </div>
-
-    <div class="element">
-        <div class="imgHolder">
-            <img src="#" />
-        </div>
-
-        <div class="elementInfo">
-            <h1>Pierdoloplool o i tak to jest. co wy ty</h1>
-            <h2>cena</h2>
-        </div>
-    </div>
-
-    <div class="element">
-        <div class="imgHolder">
-            <img src="#" />
-        </div>
-
-        <div class="elementInfo">
-            <h1>Pierdoloplool o i tak to jest. co wy ty</h1>
-            <h2>cena</h2>
-        </div>
-    </div>
-
 
 </div>
 
 
+<h1>Polecane</h1>
+<div class="gridContainter">
+
+    @foreach (var recommended in Model.Recommended)
+    {
+        var src = recommended.Gallery?.ImageGalleries?.OrderBy(d => d.Order).FirstOrDefault()?.Image.Url;
+        <a href="@Url.Action("Details", "Products", new { id = recommended.Id})" class="element">
+            <div class="elementImgHolder">
+                <img src="@src" />
+            </div>
+            <div class="elementInfo">
+                <h1>@recommended.Brand.Name @recommended.Name</h1>
+                <h2>@recommended.Price.ToString("F") zł</h2>
+            </div>
+        </a>
+    }
+</div>
+
+<h1 style="margin-top: 100px">Najlepiej sprzedające się</h1>
+<div class="gridContainter">
+
+    @foreach (var recommended in Model.Recommended)
+    {
+        var src = recommended.Gallery?.ImageGalleries?.OrderBy(d => d.Order).FirstOrDefault()?.Image.Url;
+        <a href="@Url.Action("Details", "Products", new { id = recommended.Id})" class="element">
+            <div class="elementImgHolder">
+                <img src="@src" />
+            </div>
+            <div class="elementInfo">
+                <h1>@recommended.Brand.Name @recommended.Name</h1>
+                <h2>@recommended.Price.ToString("F") zł</h2>
+            </div>
+        </a>
+    }
+</div>
+
 <style>
+    .content {
+        display: flex;
+    }
+
     .gridContainter {
         display: grid;
         grid-gap: 20px;
@@ -121,11 +130,85 @@
         padding: 0 10px;
     }
 
-    .imgHolder {
+    .elementImgHolder {
         flex-basis: 75%;
         display: flex;
         align-items: center;
-        padding: 0 10px;
+        padding: 5px 10px;
         /*border: 1px solid green;*/
     }
+
+    .newsAndHotShot {
+        display: flex;
+        height: 500px;
+        /*grid-template-columns: 2fr 1fr;*/
+    }
+
+    .slider {
+        height: 500px;
+    }
+
+    /*              */
+
+    .content {
+        display: flex;
+        /*border: 1px solid red;*/
+    }
+
+        .content form {
+            width: 60%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+    .nameAndPrice {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 30px;
+    }
+
+        .nameAndPrice h1 {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .nameAndPrice h2 {
+            font-size: 20px;
+        }
+
+    .productInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 35%;
+        border: 1px solid rgba(0,0,0, .2)
+    }
+
+    .quantity {
+        font-size: 18px;
+    }
+
+    td:nth-child(odd) {
+        width: 50%;
+        font-weight: bold;
+        text-align: right
+    }
+
+    .breadcrumb {
+        margin-bottom: 10px;
+    }
 </style>
+
+
+
+
+@Styles.Render("~/Content/slider.css")
+
+@section Scripts
+{
+    <script src="../../Content/slider.js"></script>
+
+}
