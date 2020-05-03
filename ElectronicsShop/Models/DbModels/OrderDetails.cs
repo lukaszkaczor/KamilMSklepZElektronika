@@ -17,7 +17,7 @@ namespace ElectronicsShop.Models.DbModels
 
         [Required]
         [DataType(DataType.Currency)]
-        public double PricePerItem { get; set; }
+        public decimal PricePerItem { get; set; }
 
         [Required]
         public int Quantity { get; set; }

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DailyDealsController.cs" />
     <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
@@ -239,6 +240,22 @@
     <Compile Include="Migrations\202005021615142_AddAddressesAndOrdersTables.Designer.cs">
       <DependentUpon>202005021615142_AddAddressesAndOrdersTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005021636150_AddDailyDealTable.cs" />
+    <Compile Include="Migrations\202005021636150_AddDailyDealTable.Designer.cs">
+      <DependentUpon>202005021636150_AddDailyDealTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005021726314_AddApplicationUserIdColumnToAddressesTable.cs" />
+    <Compile Include="Migrations\202005021726314_AddApplicationUserIdColumnToAddressesTable.Designer.cs">
+      <DependentUpon>202005021726314_AddApplicationUserIdColumnToAddressesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005031846362_ChangeTotalPriceToDecimalType.cs" />
+    <Compile Include="Migrations\202005031846362_ChangeTotalPriceToDecimalType.Designer.cs">
+      <DependentUpon>202005031846362_ChangeTotalPriceToDecimalType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005031851166_ChangePricePerItemToDecimalType.cs" />
+    <Compile Include="Migrations\202005031851166_ChangePricePerItemToDecimalType.Designer.cs">
+      <DependentUpon>202005031851166_ChangePricePerItemToDecimalType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -248,6 +265,7 @@
     <Compile Include="Models\DbModels\Address.cs" />
     <Compile Include="Models\DbModels\Brand.cs" />
     <Compile Include="Models\DbModels\Category.cs" />
+    <Compile Include="Models\DbModels\DailyDeal.cs" />
     <Compile Include="Models\DbModels\Gallery.cs" />
     <Compile Include="Models\DbModels\Image.cs" />
     <Compile Include="Models\DbModels\ImageGallery.cs" />
@@ -290,6 +308,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\galleries.js" />
+    <Content Include="Content\logo.jpg" />
     <Content Include="Content\slider.css" />
     <Content Include="Content\slider.js" />
     <Content Include="favicon.ico" />
@@ -389,6 +408,11 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\OrderProcessing.cshtml" />
     <Content Include="Views\Orders\ManageOrder.cshtml" />
+    <Content Include="Views\DailyDeals\Create.cshtml" />
+    <Content Include="Views\DailyDeals\Delete.cshtml" />
+    <Content Include="Views\DailyDeals\Details.cshtml" />
+    <Content Include="Views\DailyDeals\Edit.cshtml" />
+    <Content Include="Views\DailyDeals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -448,6 +472,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005021615142_AddAddressesAndOrdersTables.resx">
       <DependentUpon>202005021615142_AddAddressesAndOrdersTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005021636150_AddDailyDealTable.resx">
+      <DependentUpon>202005021636150_AddDailyDealTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005021726314_AddApplicationUserIdColumnToAddressesTable.resx">
+      <DependentUpon>202005021726314_AddApplicationUserIdColumnToAddressesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005031846362_ChangeTotalPriceToDecimalType.resx">
+      <DependentUpon>202005031846362_ChangeTotalPriceToDecimalType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005031851166_ChangePricePerItemToDecimalType.resx">
+      <DependentUpon>202005031851166_ChangePricePerItemToDecimalType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

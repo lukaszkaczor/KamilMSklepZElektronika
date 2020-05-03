@@ -18,5 +18,8 @@ namespace ElectronicsShop.Models.DbModels
 
         [Required]
         public int Quantity { get; set; }
+
+        public DailyDeal DailyDeal { get; set; }
+        public int? DailyDealId { get; set; }
     }
 }

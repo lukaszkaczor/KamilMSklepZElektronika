@@ -16,7 +16,7 @@ namespace ElectronicsShop.Models.DbModels
         public DateTime OrderDate { get; set; }
 
         [DataType(DataType.Currency)]
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public int AddressId { get; set; }
         public Address Address { get; set; }

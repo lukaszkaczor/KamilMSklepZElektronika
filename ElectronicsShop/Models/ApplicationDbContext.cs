@@ -22,6 +22,7 @@ namespace ElectronicsShop.Models
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<DailyDeal> DailyDeals { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

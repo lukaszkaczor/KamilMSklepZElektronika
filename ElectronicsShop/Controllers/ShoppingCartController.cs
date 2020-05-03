@@ -29,11 +29,20 @@ namespace ElectronicsShop.Controllers
 
             var model = new List<ShoppingCartViewModel>();
 
+            var dailyDeal = db.DailyDeals.FirstOrDefault(d => d.Start < DateTime.Now && d.End > DateTime.Now);
+
             foreach (var shoppingCart in carts)
             {
+                var product = products.FirstOrDefault(d => d.Id == shoppingCart.ProductId);
+
+                if (dailyDeal?.ProductId == shoppingCart.ProductId)
+                {
+                    product.Price = dailyDeal.NewPrice;
+                }
+
                 model.Add(new ShoppingCartViewModel()
                 {
-                    Product = products.FirstOrDefault(d => d.Id == shoppingCart.ProductId),
+                    Product = product,
                     Quantity = shoppingCart.Quantity
                 });
             }
@@ -52,6 +61,7 @@ namespace ElectronicsShop.Controllers
             if (!productExists) return HttpNotFound();
 
             var itemsCount = db.Products.FirstOrDefault(d => d.Id == productId)?.QuantityInStock ?? 0;
+
 
             if (itemsCount >= quantity)
             {

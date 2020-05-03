@@ -9,5 +9,6 @@ namespace ElectronicsShop.ViewModels
         public Address Address { get; set; }
         //public Order Order { get; set; }
         public string Message { get; set; }
+        public decimal OrderPrice { get; set; }
     }
 }

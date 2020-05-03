@@ -76,6 +76,7 @@ else
                 <td>
                     @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("itemId", item.Product.Id)
                         <button type="submit" class="btn btn-danger">x</button>
                     }

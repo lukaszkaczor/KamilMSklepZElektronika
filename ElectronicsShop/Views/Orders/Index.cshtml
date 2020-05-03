@@ -6,8 +6,12 @@
 
 <h2 style="margin-bottom: 50px">Podsumowanie zamówienia</h2>
 
-<div class="form-horizontal">
-    <div class="form-group">
+@using (Html.BeginForm("CreateOrder", "Orders", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+
+    @Html.HiddenFor(d=>d.Address.Id)
+    @Html.AntiForgeryToken()
+    @*<div class="form-group">
         @Html.LabelFor(model => model.Address.CustomerName, "Metoda wysyłki", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <select class="form-control">
@@ -23,75 +27,78 @@
                 <option>Wybierz metodę płatności</option>
             </select>
         </div>
-    </div>
-    
-    <hr />
+    </div>*@
+
+    <hr/>
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Address.CustomerName, "Imię i nazwisko", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Address.CustomerName, "Imię i nazwisko", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @Html.TextBoxFor(d => d.Address.CustomerName, new { @class = "form-control" })
+            @Html.TextBoxFor(d => d.Address.CustomerName, new {@class = "form-control"})
 
-            @Html.ValidationMessageFor(model => model.Address.CustomerName, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Address.CustomerName, "", new {@class = "text-danger"})
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Address.City, "Miejscowość", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Address.City, "Miejscowość", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @Html.TextBoxFor(d => d.Address.City, new { @class = "form-control" })
+            @Html.TextBoxFor(d => d.Address.City, new {@class = "form-control"})
 
-            @Html.ValidationMessageFor(model => model.Address.City, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Address.City, "", new {@class = "text-danger"})
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Address.ZipCode, "Kod pocztowy", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Address.ZipCode, "Kod pocztowy", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @Html.TextBoxFor(d => d.Address.ZipCode, new { @class = "form-control" })
+            @Html.TextBoxFor(d => d.Address.ZipCode, new {@class = "form-control"})
 
-            @Html.ValidationMessageFor(model => model.Address.ZipCode, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Address.ZipCode, "", new {@class = "text-danger"})
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Address.AddressLine, "Adres", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Address.AddressLine, "Adres", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @Html.TextBoxFor(d => d.Address.AddressLine, new { @class = "form-control" })
+            @Html.TextBoxFor(d => d.Address.AddressLine, new {@class = "form-control"})
 
-            @Html.ValidationMessageFor(model => model.Address.AddressLine, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Address.AddressLine, "", new {@class = "text-danger"})
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Address.PhoneNumber, "Telefon", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Address.PhoneNumber, "Telefon", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @Html.TextBoxFor(d => d.Address.PhoneNumber, new { @class = "form-control" })
+            @Html.TextBoxFor(d => d.Address.PhoneNumber, new {@class = "form-control"})
 
-            @Html.ValidationMessageFor(model => model.Address.PhoneNumber, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Address.PhoneNumber, "", new {@class = "text-danger"})
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Message, "Wiadomość do sprzedającego", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Message, "Wiadomość do sprzedającego", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @Html.TextAreaFor(d => d.Message, new { @class = "form-control" })
-
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            @Html.TextAreaFor(d => d.Message, new {@class = "form-control"})
         </div>
     </div>
-    
+
     <div class="form-group">
-        @Html.LabelFor(model => model.Message, "Razem do zapłaty", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Message, "Razem do zapłaty", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-2">
-        @Html.LabelFor(model => model.Message, "1000 zł", htmlAttributes: new { @class = "form-control" })
+            @Html.LabelFor(model => model.OrderPrice, Model.OrderPrice.ToString("F") + " zł", htmlAttributes: new {@class = "form-control"})
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-12">
+        @*{
+            @Html.HiddenFor(d=>d.Address.Id)
+            @Html.AntiForgeryToken()
             <input type="submit" value="Zamawiam i płacę" class="btn btn-info" />
+        }*@
+        <div class="col-md-offset-2 col-md-12">
+            <input type="submit" value="Zamawiam i płacę" class="btn btn-info"/>
         </div>
     </div>
-</div>
+}
