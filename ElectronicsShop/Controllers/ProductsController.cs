@@ -38,11 +38,14 @@ namespace ElectronicsShop.Controllers
                 .Include(d => d.Category.Section)
                 .FirstOrDefault(d => d.Id == id);
 
+            var dailyDeal = db.DailyDeals.FirstOrDefault(d => d.Start < DateTime.Now && d.End > DateTime.Now);
+
+
             if (quantityError)
             {
                 ViewBag.ErrorMessage = "Niewystarczająca ilość przedmiotów w magazynie";
             }
-            if(successMsg)
+            if (successMsg)
             {
                 ViewBag.Success = $"Produkt {product.Name} został dodany do koszyka";
             }
@@ -51,7 +54,8 @@ namespace ElectronicsShop.Controllers
             {
                 Product = product,
                 Tags = TagManager.GetTagNameWithValues(db, product),
-                Images = ImageManager.GetImagesForProduct(db, (int)id)
+                Images = ImageManager.GetImagesForProduct(db, (int)id),
+                DailyDeal = dailyDeal
             };
 
             if (product == null)
@@ -285,25 +289,25 @@ namespace ElectronicsShop.Controllers
             }
 
             if (db.Products.FirstOrDefault(d => d.Id == model.ProductId)?.GalleryId == null)
-                {
-                    return RedirectToAction("SetGallery", "Products", new { id = model.ProductId });
-                }
-
-                return RedirectToAction(nameof(Details), new { id = model.ProductId });
-            }
-
-            public ActionResult SetGallery(int id)
             {
-                var galleries = db.Galleries.ToList();
-                var product = db.Products.FirstOrDefault(d => d.Id == id);
-
-                var model = new SetGalleryToProductViewModel()
-                {
-                    Galleries = galleries,
-                    Product = product
-                };
-                return View(model);
+                return RedirectToAction("SetGallery", "Products", new { id = model.ProductId });
             }
+
+            return RedirectToAction(nameof(Details), new { id = model.ProductId });
+        }
+
+        public ActionResult SetGallery(int id)
+        {
+            var galleries = db.Galleries.ToList();
+            var product = db.Products.FirstOrDefault(d => d.Id == id);
+
+            var model = new SetGalleryToProductViewModel()
+            {
+                Galleries = galleries,
+                Product = product
+            };
+            return View(model);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

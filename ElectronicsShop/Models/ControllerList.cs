@@ -46,29 +46,18 @@ namespace ElectronicsShop.Models
             Label = "Sekcje"
         };
 
+        public static ControllerWithLabel DailyDeal { get; } = new ControllerWithLabel()
+        {
+            ControllerName = "DailyDeals",
+            Label = "Okazja dnia",
+            MenuType = MenuType.Upper
+        };
 
-
-
-        //public static List<ControllerWithLabel> ControllerWithLabels { get;} = new List<ControllerWithLabel>()
-        //{
-        //    //new ControllerWithLabel()
-        //    //{
-        //    //    ControllerName = "Brands",
-        //    //    Label = "Marki"
-        //    //},            new ControllerWithLabel()
-        //    //{
-        //    //    ControllerName = "Categories",
-        //    //    Label = "Kategorie"
-        //    //},            new ControllerWithLabel()
-        //    //{
-        //    //    ControllerName = "Products",
-        //    //    Label = "Przedmioty"
-        //    //},
-        //    //new ControllerWithLabel()
-        //    //{
-        //    //    ControllerName = "Tags",
-        //    //    Label = "Tagi"
-        //    //}
-        //};
+        public static ControllerWithLabel OrdersManagement { get; } = new ControllerWithLabel()
+        {
+            ControllerName = "OrdersManagement",
+            Label = "Obsługa zamówień",
+            MenuType = MenuType.Upper
+        };
     }
 }

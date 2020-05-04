@@ -7,5 +7,6 @@ namespace ElectronicsShop.ViewModels
     {
         public List<Product> Bestsellers { get; set; }
         public List<Product> Recommended { get; set; }
+        public DailyDeal DailyDeal { get; set; }
     }
 }

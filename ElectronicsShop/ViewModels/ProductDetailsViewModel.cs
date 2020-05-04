@@ -9,5 +9,6 @@ namespace ElectronicsShop.ViewModels
         public Product Product { get; set; }
         public List<TagNameWithValue> Tags { get; set; }
         public List<Image> Images { get; set; }
+        public DailyDeal DailyDeal { get; set; }
     }
 }

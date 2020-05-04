@@ -177,6 +177,7 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrdersManagementController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -256,6 +257,14 @@
     <Compile Include="Migrations\202005031851166_ChangePricePerItemToDecimalType.Designer.cs">
       <DependentUpon>202005031851166_ChangePricePerItemToDecimalType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005031932240_AddEmployeeIdToOrdersTable.cs" />
+    <Compile Include="Migrations\202005031932240_AddEmployeeIdToOrdersTable.Designer.cs">
+      <DependentUpon>202005031932240_AddEmployeeIdToOrdersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005041207423_AddOrderStatusColumnToOrdersTable.cs" />
+    <Compile Include="Migrations\202005041207423_AddOrderStatusColumnToOrdersTable.Designer.cs">
+      <DependentUpon>202005041207423_AddOrderStatusColumnToOrdersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -277,6 +286,7 @@
     <Compile Include="Models\DbModels\ShoppingCart.cs" />
     <Compile Include="Models\DbModels\Tag.cs" />
     <Compile Include="Models\DbModels\TagValue.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\GalleryManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageManager.cs" />
@@ -406,13 +416,15 @@
     <Content Include="Views\Products\Search.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\OrderProcessing.cshtml" />
-    <Content Include="Views\Orders\ManageOrder.cshtml" />
     <Content Include="Views\DailyDeals\Create.cshtml" />
     <Content Include="Views\DailyDeals\Delete.cshtml" />
     <Content Include="Views\DailyDeals\Details.cshtml" />
     <Content Include="Views\DailyDeals\Edit.cshtml" />
     <Content Include="Views\DailyDeals\Index.cshtml" />
+    <Content Include="Views\OrdersManagement\Index.cshtml" />
+    <Content Include="Views\OrdersManagement\History.cshtml" />
+    <Content Include="Views\OrdersManagement\ManageOrder.cshtml" />
+    <Content Include="Views\OrdersManagement\ActiveOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -484,6 +496,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005031851166_ChangePricePerItemToDecimalType.resx">
       <DependentUpon>202005031851166_ChangePricePerItemToDecimalType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005031932240_AddEmployeeIdToOrdersTable.resx">
+      <DependentUpon>202005031932240_AddEmployeeIdToOrdersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005041207423_AddOrderStatusColumnToOrdersTable.resx">
+      <DependentUpon>202005041207423_AddOrderStatusColumnToOrdersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

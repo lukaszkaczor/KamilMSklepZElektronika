@@ -29,12 +29,20 @@
         <div class="dotHolder">
         </div>
     </div>
-    <div class="productInfo">
+    <a href="@Url.Action("Details", "Products", new { id = @Model.DailyDeal?.ProductId })" class="productInfo">
         <div class="nameAndPrice">
             <h3>Okazja dnia</h3>
-            <h1>iTag Blow - lokalizator kluczy Bluetooth 4.0 - biały</h1>
-            <h2>Stara cena: <span style="text-decoration: line-through">1500 zł</span></h2>
-            <h4>Nowa cena: 1000 zł</h4>
+
+            @{
+                var dailyDealImg = Model.DailyDeal?.Product.Gallery.ImageGalleries.FirstOrDefault()?.Image.Url;
+            }
+
+
+            <img src="@dailyDealImg" />
+
+            <h1>@(Model.DailyDeal?.Product.Brand.Name) @(Model.DailyDeal?.Product.Name)</h1>
+            <h2>Stara cena: <span style="text-decoration: line-through">@(Model.DailyDeal?.Product.Price) zł</span></h2>
+            <h4>Nowa cena: @(Model.DailyDeal?.NewPrice) zł</h4>
         </div>
 
         <h5 style="color: crimson">@ViewBag.ErrorMessage</h5>
@@ -43,14 +51,18 @@
         @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            @*@Html.Hidden("productId", Model.Product.Id)*@
-            <input type="number" name="quantity" value="1" class="form-control" min="1" , style="width: 75px" />
-            <button class="btn btn-default" style="">Dodaj do koszyka</button>
+            @Html.Hidden("productId", Model.DailyDeal?.ProductId)
+
+            if (Model.DailyDeal != null)
+            {
+                <input type="number" name="quantity" value="1" class="form-control" min="1" , style="width: 75px"/>
+                <button class="btn btn-default" style="">Dodaj do koszyka</button>
+            }
         }
 
-        <h3 class="quantity">Do końca promocji pozostało 12:34:00</h3>
+        <h3 class="quantity">Aukcja kończy się: @(Model.DailyDeal?.End.ToUniversalTime())</h3>
 
-    </div>
+    </a>
 
 </div>
 
@@ -184,7 +196,17 @@
         align-items: center;
         justify-content: space-around;
         width: 35%;
-        border: 1px solid rgba(0,0,0, .2)
+        border: 1px solid rgba(0, 0, 0, .2);
+        height: 500px;
+
+    }
+
+        .productInfo:hover {
+            text-decoration: none;
+        }
+
+    .productInfo img {
+        width:100px;
     }
 
     .quantity {
@@ -200,6 +222,7 @@
     .breadcrumb {
         margin-bottom: 10px;
     }
+
 </style>
 
 

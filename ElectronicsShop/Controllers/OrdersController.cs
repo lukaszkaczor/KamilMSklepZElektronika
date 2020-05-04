@@ -97,15 +97,5 @@ namespace ElectronicsShop.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-        public ActionResult ManageOrder()
-        {
-            return View(new ManageOrderViewModel());
-        }
-
-        public ActionResult OrderProcessing()
-        {
-            return View(new List<Order>());
-        }
     }
 }

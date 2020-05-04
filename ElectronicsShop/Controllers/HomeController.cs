@@ -34,9 +34,15 @@ namespace ElectronicsShop.Controllers
             //    bestsellersList.Add(products.FirstOrDefault(d => d.ProductId == item.ProductId));
             //}
 
+            var dailyDeal = db.DailyDeals
+                .Include(d => d.Product.Gallery.ImageGalleries)
+                .Include(d=>d.Product.Brand)
+                .FirstOrDefault(d => d.Start < DateTime.Now && d.End > DateTime.Now);
+
             var model = new HomeViewModel()
             {
-                Recommended = products.Where(d=>d.IsRecommended).Take(10).ToList()
+                Recommended = products.Where(d=>d.IsRecommended).Take(10).ToList(),
+                DailyDeal = dailyDeal
             };
 
             return View(model);

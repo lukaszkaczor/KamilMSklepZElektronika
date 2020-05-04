@@ -1,0 +1,73 @@
+﻿@model List<ElectronicsShop.Models.DbModels.Order>
+@using ElectronicsShop.Models
+
+@{
+    ViewBag.Title = "Aktywne zamówienia";
+}
+@Html.Partial("_AdminMenu", ViewData["controllerName"] = ControllerList.OrdersManagement.ControllerName)
+
+
+<div class="orderProcessingContent">
+    <ul class="list-group">
+        <li class="list-group-item ">
+            @Html.ActionLink("Aktywne zamówienia", "Index", "OrdersManagement")
+        </li>
+        <li class="list-group-item active">
+            @Html.ActionLink("Aktywne zamówienia", "ActiveOrders", "OrdersManagement")
+        </li>
+        <li class="list-group-item ">
+            @Html.ActionLink("Historia obsłużonych zamówień", "History", "OrdersManagement")
+        </li>
+    </ul>
+
+    <div class="orderList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id zamówienia</th>
+                    <th>Data zamówienia</th>
+                    <th>Status</th>
+                    <th>Zarządzaj</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.OrderId</td>
+                        <td>@item.OrderDate.ToLongDateString()</td>
+                        <td>@item.OrderStatus.ToString()</td>
+                        <td>@Html.ActionLink("Zarządzaj", "ManageOrder", new { id = item.OrderId }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .orderProcessingContent {
+        display: flex;
+        margin-top: 20px;
+    }
+
+        .orderProcessingContent ul {
+            flex-basis: 25%;
+        }
+
+        .orderProcessingContent .orderList {
+            flex-basis: 75%;
+        }
+
+
+    a {
+        color: #262626;
+    }
+
+
+
+    table {
+        width: 100%;
+    }
+</style>

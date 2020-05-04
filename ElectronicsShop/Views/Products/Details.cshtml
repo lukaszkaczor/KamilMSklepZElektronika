@@ -1,7 +1,7 @@
 ﻿@model ElectronicsShop.ViewModels.ProductDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Product.Name;
     var imgState = "imgShow";
 }
 
@@ -37,7 +37,13 @@
     <div class="productInfo">
         <div class="nameAndPrice">
             <h1>@Model.Product.Brand.Name @Model.Product.Name</h1>
-            <h2>Cena za sztukę: @Model.Product.Price zł</h2>
+
+            
+            @{
+                var price = Model.DailyDeal?.NewPrice ?? Model.Product.Price;
+            }
+
+            <h2>Cena za sztukę: @price.ToString("F") zł</h2>
         </div>
 
         <h5 style="color: crimson">@ViewBag.ErrorMessage</h5>
