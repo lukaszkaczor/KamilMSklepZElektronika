@@ -23,20 +23,6 @@ namespace ElectronicsShop.Controllers
             return View(db.Tags.ToList());
         }
 
-        // GET: Tags/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tag tag = db.Tags.Find(id);
-            if (tag == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tag);
-        }
 
         // GET: Tags/Create
         public ActionResult Create()

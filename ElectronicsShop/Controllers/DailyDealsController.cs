@@ -22,20 +22,7 @@ namespace ElectronicsShop.Controllers
             return View(dailyDeals.ToList());
         }
 
-        // GET: DailyDeals/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DailyDeal dailyDeal = db.DailyDeals.Find(id);
-            if (dailyDeal == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dailyDeal);
-        }
+
 
         // GET: DailyDeals/Create
         public ActionResult Create()
@@ -45,8 +32,6 @@ namespace ElectronicsShop.Controllers
         }
 
         // POST: DailyDeals/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DailyDealId,ProductId,NewPrice,Quantity,ItemsSold,Start,End,Ended")] DailyDeal dailyDeal)
@@ -79,20 +64,27 @@ namespace ElectronicsShop.Controllers
         }
 
         // POST: DailyDeals/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DailyDealId,ProductId,NewPrice,Quantity,ItemsSold,Start,End,Ended")] DailyDeal dailyDeal)
+        public ActionResult Edit(DailyDeal model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dailyDeal).State = EntityState.Modified;
+                var dailyDeal = db.DailyDeals.FirstOrDefault(d=>d.DailyDealId == model.DailyDealId);
+                //db.Entry(dailyDeal).State = EntityState.Modified;
+                dailyDeal.ProductId = model.ProductId;
+                dailyDeal.Quantity = model.Quantity;
+                dailyDeal.ItemsSold= model.ItemsSold;
+                dailyDeal.NewPrice = model.NewPrice;
+                dailyDeal.End= model.End;
+                dailyDeal.Start= model.Start;
+                dailyDeal.Ended= model.Ended;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", dailyDeal.ProductId);
-            return View(dailyDeal);
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", model.ProductId);
+            return View(model);
         }
 
         // GET: DailyDeals/Delete/5

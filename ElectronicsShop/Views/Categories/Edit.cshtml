@@ -1,17 +1,17 @@
 ﻿@model ElectronicsShop.Models.DbModels.Category
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edytuj";
 }
 
-<h2>Edit</h2>
+<h2>Edytuj</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Category</h4>
+        <h4>Kategoria</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -41,5 +41,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Wróć", "Index")
 </div>

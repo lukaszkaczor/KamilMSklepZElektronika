@@ -25,20 +25,6 @@ namespace ElectronicsShop.Controllers
             return View(db.Galleries.ToList());
         }
 
-        // GET: Galleries/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Gallery gallery = db.Galleries.Find(id);
-            if (gallery == null)
-            {
-                return HttpNotFound();
-            }
-            return View(gallery);
-        }
 
         // GET: Galleries/Create
         public ActionResult Create(int? id)
@@ -155,6 +141,14 @@ namespace ElectronicsShop.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Gallery gallery = db.Galleries.Find(id);
+
+            var products = db.Products.Where(d => d.GalleryId == gallery.Id);
+
+            foreach (var product in products)
+            {
+                product.GalleryId = null;
+            }
+
             db.Galleries.Remove(gallery);
             db.SaveChanges();
             return RedirectToAction("Index");

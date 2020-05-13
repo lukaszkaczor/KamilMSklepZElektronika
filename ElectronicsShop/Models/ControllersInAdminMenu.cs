@@ -14,7 +14,7 @@ namespace ElectronicsShop.Models
             ControllerList.Categories,
             ControllerList.Products,
             ControllerList.Tags,
-            ControllerList.Images,
+            //ControllerList.Images,
             ControllerList.Galleries
         };
 

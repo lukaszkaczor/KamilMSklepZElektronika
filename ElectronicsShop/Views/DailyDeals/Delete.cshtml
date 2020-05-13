@@ -1,14 +1,14 @@
 ﻿@model ElectronicsShop.Models.DbModels.DailyDeal
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Usuń";
 }
 
-<h2>Delete</h2>
+<h2>Usuń</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy jesteś pewien, że chcesz to usunąć?</h3>
 <div>
-    <h4>DailyDeal</h4>
+    <h4>Okazja dnia</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,62 +19,15 @@
             @Html.DisplayFor(model => model.Product.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NewPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NewPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemsSold)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ItemsSold)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Start)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Start)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.End)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ended)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ended)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Wróć", "Index")
         </div>
     }
 </div>

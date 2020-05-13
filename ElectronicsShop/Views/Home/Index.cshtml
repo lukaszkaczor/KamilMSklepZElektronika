@@ -1,7 +1,7 @@
 ﻿@model ElectronicsShop.ViewModels.HomeViewModel
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Omega";
     var imgState = "imgShow";
 }
 
@@ -34,7 +34,7 @@
             <h3>Okazja dnia</h3>
 
             @{
-                var dailyDealImg = Model.DailyDeal?.Product.Gallery.ImageGalleries.FirstOrDefault()?.Image.Url;
+                var dailyDealImg = Model.DailyDeal?.Product?.Gallery?.ImageGalleries?.FirstOrDefault()?.Image?.Url;
             }
 
 

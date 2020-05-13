@@ -5,36 +5,33 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Okazja dnia</h2>
 
 @Html.Partial("_AdminMenu", ViewData["controllerName"] = ControllerList.DailyDeal.ControllerName)
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Utwórz", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Product.Name)
+            Produkt
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NewPrice)
+            Nowa cena
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+          Ilość
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ItemsSold)
+            Sprzedanych
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Start)
+            Data rozpoczęcia 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.End)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ended)
+            Data zakończenia
         </th>
         <th></th>
     </tr>
@@ -61,12 +58,8 @@
                 @Html.DisplayFor(modelItem => item.End)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ended)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.DailyDealId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.DailyDealId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.DailyDealId })
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.DailyDealId }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.DailyDealId })
             </td>
         </tr>
     }
