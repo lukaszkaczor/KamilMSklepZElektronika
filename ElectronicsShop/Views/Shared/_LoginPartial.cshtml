@@ -5,11 +5,24 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" style="height: 100%; display: flex; justify-content: center; align-items: center;">
             <li>
                 <a href="@Url.Action("Index", "ShoppingCart")"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" ></span></a>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+            @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>*@
+            <li>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">
+                        Profil <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("MyOrders", "Orders")">Moje zamówienia</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#"><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></a></li>
+                    </ul>
+                </div>
+
+            </li>
         </ul>
     }
 }

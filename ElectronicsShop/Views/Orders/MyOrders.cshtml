@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ElectronicsShop.Models.DbModels.Order>
+@{
+    ViewBag.Title = "Moje zamówienia";
+}
+
+
+
+<div class="settingsContent">
+
+    <div class="settingPositions">
+
+        <div class="tableWithOrders">
+            <table class="table">
+                <tr>
+                    <th>Id zamówienia</th>
+                    <th>
+                        Data zamówienia
+                    </th>
+                    <th>
+                        Cena
+                    </th>
+                    <th>Status</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderDate)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.TotalPrice)*@
+                            @item.TotalPrice.ToString("F") zł
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderStatus)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

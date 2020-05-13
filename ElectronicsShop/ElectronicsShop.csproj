@@ -425,6 +425,8 @@
     <Content Include="Views\OrdersManagement\History.cshtml" />
     <Content Include="Views\OrdersManagement\ManageOrder.cshtml" />
     <Content Include="Views\OrdersManagement\ActiveOrders.cshtml" />
+    <Content Include="Views\Orders\OrderCompleted.cshtml" />
+    <Content Include="Views\Orders\MyOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

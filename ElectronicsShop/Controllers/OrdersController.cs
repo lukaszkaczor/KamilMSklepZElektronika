@@ -39,6 +39,21 @@ namespace ElectronicsShop.Controllers
             return View(model);
         }
 
+        public ActionResult OrderCompleted()
+        {
+            return View();
+        }
+
+        public ActionResult MyOrders()
+        {
+            var userId = User.Identity.GetUserId();
+            var model = new List<Order>();
+            model = db.Orders.Where(d => d.ApplicationUserId == userId).ToList();
+
+
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateOrder(OrderSummaryViewModel model)
@@ -95,7 +110,7 @@ namespace ElectronicsShop.Controllers
             db.ShoppingCarts.RemoveRange(shoppingCart);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrderCompleted", "Orders");
         }
     }
 }

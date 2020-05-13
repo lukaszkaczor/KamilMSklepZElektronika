@@ -13,6 +13,7 @@ namespace ElectronicsShop.Models.DbModels
         public string Name { get; set; }
         
         [Required]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         public bool IsRecommended { get; set; } = false;
